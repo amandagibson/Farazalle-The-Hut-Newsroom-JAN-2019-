@@ -12,38 +12,49 @@
 
 ActiveRecord::Schema.define(version: 2019_03_18_083136) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+		# These are extensions that must be enabled in order to support this database
+		enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image"
-    t.bigint "category_id"
-    t.string "status"
-    t.index ["category_id"], name: "index_articles_on_category_id"
-  end
+		create_table "articles", force: :cascade do |t|
+			t.string "title"
+			t.text "content"
+			t.datetime "created_at", null: false
+			t.datetime "updated_at", null: false
+			t.string "image"
+			t.string "status"
+			t.bigint "category_id"
+			t.index ["category_id"], name: "index_articles_on_category_id"
+		end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+		create_table "categories", force: :cascade do |t|
+			t.string "name"
+			t.datetime "created_at", null: false
+			t.datetime "updated_at", null: false
+		end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "role"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
+		create_table "users", force: :cascade do |t|
+			t.string "email", default: "", null: false
+			t.string "encrypted_password", default: "", null: false
+			t.string "reset_password_token"
+			t.datetime "reset_password_sent_at"
+			t.datetime "remember_created_at"
+			t.datetime "created_at", null: false
+			t.datetime "updated_at", null: false
+			t.string "role"
+			t.string "confirmation_token"
+			t.datetime "confirmed_at"
+			t.datetime "confirmation_sent_at"
+			t.integer "sign_in_count", default: 0, null: false
+			t.datetime "current_sign_in_at"
+			t.datetime "last_sign_in_at"
+			t.inet "current_sign_in_ip"
+			t.inet "last_sign_in_ip"
+			t.string "temp_password"
+			t.integer "role", default: 0
+			t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+			t.index ["email"], name: "index_users_on_email", unique: true
+			t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+		end
 
-  add_foreign_key "articles", "categories"
+		add_foreign_key "articles", "categories"
 end
