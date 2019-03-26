@@ -15,4 +15,4 @@
 					- else
 						= link_to article.title, (user_signed_in? ? article_path(article) : new_user_registration_path)
 						= image_tag article.image, class: 'article_image w-full py-2'
-						%p= truncate(article.content, length: 100, separator: ' ', ommision: "... (Read More)")
+						%p= truncate(article.content, length: 100, separator: ' ', ommision: "... (Read More)") 
